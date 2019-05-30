@@ -196,6 +196,7 @@
 		.header .plus18 div {
 			width: 30px;
 			height: 30px;
+			font-size: 0;
 			background-color: transparent;
 			background-image: url("data:image/svg+xml,%3Csvg width='37' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.684 23.755v-9.62H9.367v-2.467h5.519v12.087h-3.202zM26.908 14.795c0 1.05-.59 1.98-1.587 2.506 1.39.552 2.247 1.711 2.247 3.058 0 2.17-2.008 3.558-5.154 3.558s-5.154-1.361-5.154-3.504c0-1.374.941-2.546 2.388-3.099-1.068-.566-1.742-1.536-1.742-2.587 0-1.927 1.756-3.153 4.494-3.153 2.767-.027 4.508 1.24 4.508 3.22zM20.28 20.09c0 1.024.758 1.59 2.134 1.59 1.39 0 2.163-.552 2.163-1.59 0-.997-.772-1.563-2.163-1.563-1.376-.014-2.134.566-2.134 1.563zm.323-5.12c0 .862.646 1.347 1.811 1.347 1.166 0 1.812-.485 1.812-1.347 0-.903-.646-1.402-1.812-1.402-1.165 0-1.811.499-1.811 1.402z' fill='%23eee'/%3E%3Cpath d='M32.905 13.03c.533 1.509.8 3.085.8 4.688 0 8.058-6.84 14.62-15.237 14.62-8.399 0-15.238-6.562-15.238-14.62C3.23 9.661 10.07 3.1 18.468 3.1c1.67 0 3.314.256 4.887.768V.633A19.206 19.206 0 0 0 18.468 0C8.286 0 0 7.95 0 17.718c0 9.77 8.286 17.719 18.468 17.719 10.181 0 18.467-7.95 18.467-17.718 0-1.59-.224-3.167-.66-4.69h-3.37z' fill='%23eee'/%3E%3Cpath d='M31.979 4.757V1.36h-2.542v3.396h-3.525v2.438h3.525v3.396h2.541V7.195h3.54V4.757h-3.54z' fill='%23eee'/%3E%3C/svg%3E");
 			-webkit-background-size: contain;
@@ -638,13 +639,13 @@
 	<input type="hidden" name="requestId" th:value="${requestId}"/>
 	<input type="hidden" name="msisdn" th:value="${msisdn}"/>
 	<input type="hidden" name="repeatCode" value="false"/>
-<div class="header">
+<div class="header" id="header-block">
 	<div class="inner blured">
 		<div class="name">
-			<span>Видео онлайн</span>
+			<span class="header-text">Видео онлайн</span>
 		</div>
 		<div class="plus18">
-			<div></div>
+			<div class="age-limit">18+</div>
 		</div>
 		<div class="menu">
 			<button disabled></button>
@@ -652,7 +653,7 @@
 	</div>
 </div>
 
-<div class="main">
+<div class="main" id="main-block">
 	<div class="inner blured">
 		<div class="video">
 			<div class="inner">
@@ -698,11 +699,11 @@
 		<div class="heading">
 			<p>Приятного просмотра</p>
 		</div>
-		<button class="btn" id="wapSubmitBtn" type="submit">
-				<span>Смотреть</span>
+		<button class="btn" id="activation-btn" type="submit">
+				<span class="activation-btn-text">Смотреть</span>
 		</button>
-		<div th:if="${useSmsLink == null || useSmsLink == 'false'}">
-			<span class="price" th:switch="${evalRequestType}">
+		<div th:if="${useSmsLink == null || useSmsLink == 'false'}" id="info-block" class="info-block-text">
+			<span class="price info-block-text" th:switch="${evalRequestType}">
 				<span th:case="'single-request'">
 					<span th:if="${tarifficationType == 1 and cpaRequestPriceCodePrice != null}" th:text="'Стоимость: ' + ${cpaRequestPriceCodePrice} + ' руб.'" class="line2">Стоимость: 13 руб.</span>
 				</span>
@@ -718,19 +719,21 @@
 	</div>
 </div>
 
-<div class="rules" id="footer">
-	<div class="inner blured">
-		<span th:utext="'Провайдер:' + ${(#strings.arraySplit(partnerContact, ','))[0]}">Провайдер:ООО «Телеком Клуб»</span>
-		<span th:utext="${(#strings.arraySplit(partnerContact, ','))[1]}">claim@telecom-club.com</span>
-		<span th:utext="${(#strings.arraySplit(partnerContact, ','))[2]}">88007700431</span>
-		<a href="http://moskva.beeline.ru/customers/products/mobile/services/details/uslugi-na-korotkikh-nomerakh/">Пользовательское соглашение</a>
+<div class="rules" id="footer-block">
+	<div class="inner blured footer-text">
+		<span class="footer-text" th:utext="'Провайдер:' + ${(#strings.arraySplit(partnerContact, ','))[0]}">Провайдер:ООО «Телеком
+			Клуб»</span>
+		<span class="footer-text" th:utext="${(#strings.arraySplit(partnerContact, ','))[1]}">claim@telecom-club.com</span>
+		<span class="footer-text" th:utext="${(#strings.arraySplit(partnerContact, ','))[2]}">88007700431</span>
+		<a class="footer-text"
+			href="http://moskva.beeline.ru/customers/products/mobile/services/details/uslugi-na-korotkikh-nomerakh/">Пользовательское соглашение</a>
 	</div>
 </div>
 </form>
 <script type="text/javascript">
 		//<![CDATA[
 		function rsz() {
-				var footer = document['getElementById']('footer');
+				var footer = document['getElementById']('footer-block');
 				var buttonWrap = document['getElementsByClassName']('btn-wrapper')[0];
 				footer['style']['bottom'] = "auto";
 				footer['style']['top'] = (window['innerHeight'] - footer.offsetHeight) + 'px';
